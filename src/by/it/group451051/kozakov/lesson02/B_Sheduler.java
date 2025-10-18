@@ -49,11 +49,23 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
 
+        for (int i = 0; i < events.length - 1; i++) {
+            for (int j = 0; j < events.length - i - 1; j++) {
+                if (events[j].stop > events[j + 1].stop) {
+                    Event temp = events[j];
+                    events[j] = events[j + 1];
+                    events[j + 1] = temp;
+                }
+            }
+        }
 
-
-
-
-
+        int lastEnd = from;
+        for (Event event: events) {
+            if (event.start >= lastEnd) {
+                result.add(event);
+                lastEnd = event.stop;
+            }
+        }
         return result;                        //вернем итог
     }
 }
