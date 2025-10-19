@@ -13,13 +13,13 @@
 **Посмотрите видео: <a href="https://youtu.be/mIs-X63CH78" target="_blank">Tutorial:QuickStart</a>**
 <br>_(оно старое, но переписывать смысла нет, все понятно должно быть)_.
 
-1. Инициализация. Нажмите Fork на странице https://github.com/demologin/ADS-LMS/
+1. Инициализация. Нажмите Fork на странице https://github.com/Khmelov/ADS-LMS/
 2. У вас в аккаунте fork появится тут  https://github.com/ваш_логин/ADS-LMS
 3. Выберите в IDEA git -> clone и затем:
  * укажите ссылку на Ваш fork https://github.com/ваш_логин/ADS-LMS;
  * выберите путь к директории (папке) проекта (без русских букв и пробелов);
  * укажите имя директории проекта (например ADS-LMS_verXX - такой директории на диске быть не должно).
- * после создания проекта нужно вручную добавить источник для обновлений VCS -> Git -> Remote имя **upstream** с URL: https://github.com/demologin/ADS-LMS/
+ * после создания проекта нужно вручную добавить источник для обновлений VCS -> Git -> Remote имя **upstream** с URL: https://github.com/Khmelov/ADS-LMS/
 
 ### Перед **каждым** сеансом работы:
 
