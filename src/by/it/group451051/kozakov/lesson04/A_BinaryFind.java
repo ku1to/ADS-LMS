@@ -32,28 +32,40 @@ public class A_BinaryFind {
         Scanner scanner = new Scanner(stream);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
-        //размер отсортированного массива
         int n = scanner.nextInt();
-        //сам отсортированный массива
+
         int[] a=new int[n];
         for (int i = 1; i <= n; i++) {
             a[i-1] = scanner.nextInt();
         }
 
-        //размер массива индексов
         int k = scanner.nextInt();
+
         int[] result=new int[k];
         for (int i = 0; i < k; i++) {
             int value = scanner.nextInt();
-            //тут реализуйте бинарный поиск индекса
 
+            result[i] = binarySearch(a, value);
 
-
-
-            result[i]=0;
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
+    }
+
+    private int binarySearch(int[] a, int value) {
+        int left = 0;
+        int right = a.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (a[mid] == value) {
+                return mid + 1;
+            } else if (a[mid] < value) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
     }
 
 
