@@ -2,6 +2,8 @@ package by.it.group451051.kozakov.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // Lesson 3. B_Huffman.
@@ -50,9 +52,31 @@ public class B_Huffman {
         Integer length = scanner.nextInt();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение
+        scanner.nextLine();
 
+        Map<String, Character> map = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            String line = scanner.nextLine();
+            String[] parts = line.split(": ");
+            char char_ = parts[0].charAt(0);
+            String code = parts[1];
+            map.put(code, char_);
+        }
 
+        String inputStr = scanner.nextLine();
 
+        if (inputStr.length() == length) {
+            StringBuilder code = new StringBuilder();
+            for (int i = 0; i < length; i++) {
+                code.append(inputStr.charAt(i));
+                if (map.containsKey(code.toString())) {
+                    result.append(map.get(code.toString()));
+                    code.setLength(0);
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid encoded string length");
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         return result.toString(); //01001100100111

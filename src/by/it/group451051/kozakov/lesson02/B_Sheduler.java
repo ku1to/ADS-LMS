@@ -59,11 +59,10 @@ public class B_Sheduler {
             }
         }
 
-        int lastEnd = from;
         for (Event event: events) {
-            if (event.start >= lastEnd) {
+            if (event.start >= from) {
                 result.add(event);
-                lastEnd = event.stop;
+                from = event.stop;
             }
         }
         return result;                        //вернем итог
