@@ -46,21 +46,61 @@ public class C_GetInversions {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
-        int result = 0;
+
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
 
 
-
-
-
-
-
+        int result = countInv(a, 0, a.length - 1);
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
+    private int countInv(int[] arr, int left, int right) {
+        int invCount = 0;
+        if (left < right) {
+            int middle = left + (right - left) / 2;
+            invCount += countInv(arr, left, middle);
+            invCount += countInv(arr, middle + 1, right);
+            invCount += mergeAndCount(arr, left, middle, right);
+        }
+        return invCount;
+    }
+
+    // Функция для слияния и подсчёта инверсий
+    private int mergeAndCount(int[] arr, int left, int middle, int right) {
+        int[] leftArray = new int[middle - left + 1];
+        int[] rightArray = new int[right - middle];
+
+        for (int i = 0; i < leftArray.length; i++) {
+            leftArray[i] = arr[left + i];
+        }
+        for (int j = 0; j < rightArray.length; j++) {
+            rightArray[j] = arr[middle + 1 + j];
+        }
+
+        int i = 0, j = 0, k = left;
+        int invCount = 0;
+
+        while (i < leftArray.length && j < rightArray.length) {
+            if (leftArray[i] <= rightArray[j]) {
+                arr[k++] = leftArray[i++];
+            } else {
+                arr[k++] = rightArray[j++];
+                invCount += (middle + 1) - (left + i);
+            }
+        }
+
+        while (i < leftArray.length) {
+            arr[k++] = leftArray[i++];
+        }
+        while (j < rightArray.length) {
+            arr[k++] = rightArray[j++];
+        }
+
+        return invCount;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
