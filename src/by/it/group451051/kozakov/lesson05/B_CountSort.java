@@ -33,8 +33,26 @@ public class B_CountSort {
         //тут реализуйте логику задачи с применением сортировки подсчетом
 
 
+        int max = 0;
+        for (int point : points) {
+            if (point > max) {
+                max = point;
+            }
+        }
 
+        int[] count = new int[max + 1];
 
+        for (int point : points) {
+            count[point]++;
+        }
+
+        int index = 0;
+        for (int i = 0; i < count.length; i++) {
+            while (count[i] > 0) {
+                points[index++] = i;
+                count[i]--;
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return points;

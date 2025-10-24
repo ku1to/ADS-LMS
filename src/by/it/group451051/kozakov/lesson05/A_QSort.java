@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /*
 Видеорегистраторы и площадь.
@@ -43,17 +44,25 @@ public class A_QSort {
         int stop;
 
         Segment(int start, int stop){
-            this.start = start;
-            this.stop = stop;
             //тут вообще-то лучше доделать конструктор на случай если
             //концы отрезков придут в обратном порядке
+            if (start < stop) {
+                this.start = start;
+                this.stop = stop;
+            } else {
+                this.start = stop;
+                this.stop = start;
+            }
         }
 
         @Override
         public int compareTo(Segment o) {
             //подумайте, что должен возвращать компаратор отрезков
-
-            return 0;
+            if (this.start != o.start) {
+                return Integer.compare(this.start, o.start);
+            } else {
+                return Integer.compare(this.stop, o.stop);
+            }
         }
     }
 
@@ -82,13 +91,52 @@ public class A_QSort {
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
+        quickSort(segments, 0, segments.length-1);
 
-
+        for (int i = 0; i < m; i++) {
+            int point = points[i];
+            int count = 0;
+            for (Segment segment : segments) {
+                if (segment.start <= point && point <= segment.stop) {
+                    count++;
+                }
+            }
+            result[i] = count;
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
+    private void quickSort(Segment[] segments, int left, int right) {
+        if (left < right) {
+            int index = partition(segments, left, right);
+            quickSort(segments, left, index - 1);
+            quickSort(segments, index + 1, right);
+        }
+    }
+
+    private int partition(Segment[] segments, int left, int right) {
+        Segment segment = segments[right];
+        int i = left - 1;
+
+        for (int j = left; j < right; j++) {
+            if (segments[j].compareTo(segment) <= 0) {
+                i++;
+                // Обмен элементов
+                Segment temp = segments[i];
+                segments[i] = segments[j];
+                segments[j] = temp;
+            }
+        }
+
+        // Обмен опорного элемента
+        Segment temp = segments[i + 1];
+        segments[i + 1] = segments[right];
+        segments[right] = temp;
+
+        return i + 1;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
