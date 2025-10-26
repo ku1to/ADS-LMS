@@ -43,12 +43,27 @@ public class A_EditDist {
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
+        if (one.isEmpty()) {
+            return two.length();
+        }
+        if (two.isEmpty()) {
+            return one.length();
+        }
 
-        int result = 0;
+        if (one.charAt(0) == two.charAt(0)) {
+            return getDistanceEdinting(one.substring(1), two.substring(1));
+        }
+
+        return 1 + Math.min(
+            Math.min(
+            getDistanceEdinting(one.substring(1), two),
+            getDistanceEdinting(one, two.substring(1))
+            ),
+            getDistanceEdinting(one.substring(1), two.substring(1))
+        );
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
     }
-
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
